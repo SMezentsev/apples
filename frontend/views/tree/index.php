@@ -6,7 +6,11 @@ use common\models\ProductPosition;
 use common\models\ProductCondition;
 
 ?>
-
+<div class="row">
+    <div class="col-md-12">
+            <p><a class="btn btn-lg btn-success" href="/tree/add">Добавить яблочневое дерево</a></p>
+    </div>
+</div>
 <div class="row">
     <div class="col-md-4">
         <?= GridView::widget([
@@ -23,7 +27,7 @@ use common\models\ProductCondition;
                 }
                 return [];
             },
-            'toolbar' =>  [
+            'toolbar' => [
             ],
             'pjax' => true,
             'toggleDataOptions' => ['minCount' => 10],
@@ -64,40 +68,40 @@ use common\models\ProductCondition;
 
         foreach ($model->apples as $apple) { ?>
 
-        <div class="row">
-            <div class="col-md-2">
-                <i class="fa fa-apple" style="font-size:100px;color:#<?= $apple->color ?>"></i>
-            </div>
-            <div class="col-md-3">
-                <div>Количество: <?= $apple->amount ?>%</div>
-                <div>Состояние: <?= $apple->condition->productCondition->name ?></div>
-                <div>Положение: <?= $apple->position->productPosition->name ?></div>
-            </div>
-            <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-2">
+                    <i class="fa fa-apple" style="font-size:100px;color:#<?= $apple->color ?>"></i>
+                </div>
+                <div class="col-md-3">
+                    <div>Количество: <?= $apple->amount ?>%</div>
+                    <div>Состояние: <?= $apple->condition->productCondition->name ?></div>
+                    <div>Положение: <?= $apple->position->productPosition->name ?></div>
+                </div>
+                <div class="col-md-6">
 
-                <?php if ($apple->position->productPosition->id === ProductPosition::ON_TREE) { ?>
-                <?= HTML::a(
-                    'Упасть',
-                    '/tree/fell-apple?tree_id='.$model->id.'&apple_id='.$apple->id,
-                    ['class' => 'btn btn-primary btn-sm']); ?>
-                <?php } ?>
-                <?php if ($apple->position->productPosition->id === ProductPosition::ON_GROUND && $apple->amount) { ?>
-                <?= HTML::a(
-                    'Откусить 20%',
-                    '/tree/eat-apple?tree_id='.$model->id.'&apple_id='.$apple->id,
-                    ['class' => 'btn btn-primary btn-sm']); ?>
-                <?php } ?>
-                <?php if (!$apple->amount) { ?>
-                    <?= HTML::a(
-                        'Удалить',
-                        '/tree/delete-apple?tree_id='.$model->id.'&apple_id='.$apple->id,
-                        ['class' => 'btn btn-primary btn-sm']); ?>
-                <?php } ?>
+                    <?php if ($apple->position->productPosition->id === ProductPosition::ON_TREE) { ?>
+                        <?= HTML::a(
+                            'Упасть',
+                            '/tree/fell-apple?tree_id=' . $model->id . '&apple_id=' . $apple->id,
+                            ['class' => 'btn btn-primary btn-sm']); ?>
+                    <?php } ?>
+                    <?php if ($apple->position->productPosition->id === ProductPosition::ON_GROUND && $apple->amount) { ?>
+                        <?= HTML::a(
+                            'Откусить 20%',
+                            '/tree/eat-apple?tree_id=' . $model->id . '&apple_id=' . $apple->id,
+                            ['class' => 'btn btn-primary btn-sm']); ?>
+                    <?php } ?>
+                    <?php if (!$apple->amount) { ?>
+                        <?= HTML::a(
+                            'Удалить',
+                            '/tree/delete-apple?tree_id=' . $model->id . '&apple_id=' . $apple->id,
+                            ['class' => 'btn btn-primary btn-sm']); ?>
+                    <?php } ?>
+                </div>
             </div>
-        </div>
 
 
-    <?php } ?>
+        <?php } ?>
     </div>
 </div>
 </div>
